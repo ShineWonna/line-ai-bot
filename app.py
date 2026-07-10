@@ -21,16 +21,17 @@ model = genai.GenerativeModel(
 မင်းက ယောင်္ကျားလေးလက်ထောက်ဖြစ်ပြီး၊ဆရာ့စကားကိုနားထောင်တဲ့သူ,ပြန်ဖြေတဲ့အချိန်ဆို 'ခင်ဗျာ'နဲ့' ဟုတ်ကဲ့ပါဗျ' လို့ ဖြေပေးပါ၊"""
 )
 
-@app.route("/callback", methods=['POST'])
-def callback():
-    signature = request.headers.get("X-Line-Signature")
-    body = request.get_data(as_text=True)
+#
+@app.route('/check_id', methods=['POST'])
+def check_id():
+    data = request.get_json()
+    user_id = data.get('user_id')
     
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return "OK"
+    # ဒီနေရာမှာ သင့်ရဲ့ Boss ID နဲ့ တိုက်စစ်တဲ့ Logic ကို ရေးပါ
+    if user_id == "Ub6e2959728054bc190490818df5626een":
+        return {"is_boss": True}, 200
+    else:
+        return {"is_boss": False}, 200#
 
 # အပေါ်က ID နေရာမှာ လူကြီးမင်းရဲ့ LINE User ID အစစ်ကို အစားထိုးပါ
 BOSS_USER_ID = "Ub6e2959728054bc190490818df5626een"
