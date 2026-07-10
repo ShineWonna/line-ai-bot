@@ -32,16 +32,22 @@ def callback():
         abort(400)
     return "OK"
 
+# အပေါ်က ID နေရာမှာ လူကြီးမင်းရဲ့ LINE User ID အစစ်ကို အစားထိုးပါ
+BOSS_USER_ID = "Ub6e2959728054bc190490818df5626ee"
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_message = event.message.text
+    sender_id = event.source.user_id  # စာပို့တဲ့သူရဲ့ ID ကို ယူတယ်
     
-    try:
-        # Gemini AI ဆီက စာသားတောင်းဆိုခြင်း
+    # ဆရာအစစ်ဖြစ်ပြီး "အခုကစပြီး" ဆိုတဲ့ အမိန့်စကားလုံး ပါဝင်ရင်
+    if sender_id == BOSS_USER_ID and "အခုကစပြီး" in user_message:
+        # ဒီနေရာမှာ System Instruction ကို Update လုပ်မယ့် ကုဒ် သို့မဟုတ် မှတ်သားမယ့်ပုံစံမျိုး လုပ်ဆောင်ပါမည်
+        reply_text = "ဟုတ်ကဲ့ပါ ဆရာ Shine Wonna။ အချက်အလက်အသစ်ကို သေချာမှတ်သားလိုက်ပါပြီခင်ဗျာ။"
+    else:
+        # တခြားသူတွေလာမေးရင် ပုံမှန် လက်ထောက်အတိုင်းပဲ Gemini နဲ့ ပြန်ဖြေပေးမယ်
         response = model.generate_content(user_message)
         reply_text = response.text
-    except Exception as e:
-        reply_text = f"Gemini Error: {str(e)}"
         
     line_bot_api.reply_message(
         event.reply_token,
