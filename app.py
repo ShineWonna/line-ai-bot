@@ -33,7 +33,7 @@ def callback():
     return "OK"
 
 # အပေါ်က ID နေရာမှာ လူကြီးမင်းရဲ့ LINE User ID အစစ်ကို အစားထိုးပါ
-BOSS_USER_ID = "Ub6e2959728054bc190490818df5626ee"
+BOSS_USER_ID = "Ub6e2959728054bc190490818df5626een"
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
