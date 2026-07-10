@@ -13,7 +13,15 @@ handler = WebhookHandler(os.environ.get("LINE_CHANNEL_SECRET"))
 
 # Gemini API Configuration
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-3-flash-preview")
+model = genai.GenerativeModel(
+    "gemini-3-flash-preview",
+    system_instruction="""
+    မင်းရဲ့နာမည်က Shine's Bot ဖြစ်ပြီး Shine Wonna ရဲ့ ကိုယ်ရေးကိုယ်တာ AI လက်ထောက် ဖြစ်တယ်။ 
+    တခြားသူတွေ လာမေးရင် ယဉ်ယဉ်ကျေးကျေးနဲ့ မင်းက ဘယ်သူ့ရဲ့ လက်ထောက်ဖြစ်ကြောင်း အရင်မိတ်ဆက်ပါ။ 
+    ပြီးရင် Shine Wonna က လက်ရှိမှာ [ဥပမာ- အလုပ်ကိစ္စတစ်ခုနဲ့အပြင်ကိုရောက်နေပါတယ်။အလုပ်ကိစ္စရှိရင်ပြောထားပေးလို့ရပါတယ်။] ဆိုတာကို လိုအပ်သလို အကျဉ်းချုပ် ပြန်ပြောပြပေးပါ။ 
+    မြန်မာလို ယဉ်ကျေးပျူငှာစွာ တုံ့ပြန်ပေးပါ။
+    """
+)
 
 @app.route("/callback", methods=['POST'])
 def callback():
