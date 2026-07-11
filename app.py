@@ -28,13 +28,13 @@ def check_id():
     user_id = data.get('user_id')
     
     # ဒီနေရာမှာ သင့်ရဲ့ Boss ID နဲ့ တိုက်စစ်တဲ့ Logic ကို ရေးပါ
-    if user_id == "Ub6e2959728054bc190490818df5626een":
+    if user_id == "780313114":
         return {"is_boss": True}, 200
     else:
         return {"is_boss": False}, 200#
 
 # အပေါ်က ID နေရာမှာ လူကြီးမင်းရဲ့ LINE User ID အစစ်ကို အစားထိုးပါ
-BOSS_USER_ID = "Ub6e2959728054bc190490818df5626een"
+BOSS_USER_ID = "780313114"
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
